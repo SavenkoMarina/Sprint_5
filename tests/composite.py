@@ -14,7 +14,7 @@ from locators import (
 
 class TestComposite:
 
-    def test_bread(self, browser_auth):
+    def test_constructor_scroll(self, browser_auth):
         browser_auth.find_element(By.XPATH, TOPPINGS_BTN).click()
         WebDriverWait(browser_auth, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, TOPPINGS_HEADER)))
         time.sleep(2)

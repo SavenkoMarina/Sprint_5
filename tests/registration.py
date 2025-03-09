@@ -1,56 +1,43 @@
-import time
-import string
-import random
-
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 from locators import (
     REG_INPUT_NAME,
     REG_INPUT_PASSWORD,
-    REG_INPUT_EMAIL,
     REG_BTN_REG,
     REG_TEXT_ERROR_PWD,
+    AUTH_RECOVERY_HREF,
 )
-
-EMAIL_LEN = 6
+from urls import REG_URL
+from helpers import generate_email
 
 
 class TestRegistration:
-    REG_URL = 'https://stellarburgers.nomoreparties.site/register'
-
-    def _generate_email(self):
-        chars = string.ascii_lowercase + string.digits
-        return ''.join(random.choice(chars) for _ in range(EMAIL_LEN))
-
-
     def test_registration_success(self, browser):
-        browser.get(self.REG_URL)
+        browser.get(REG_URL)
 
-        name_elem = browser.find_element(By.XPATH, REG_INPUT_NAME)
+        name_elem, email_elem = browser.find_elements(By.XPATH, REG_INPUT_NAME)
         name_elem.send_keys("Марина")
+        email_elem.send_keys(f"{generate_email()}@ya.ru")
 
         pwd_elem = browser.find_element(By.XPATH, REG_INPUT_PASSWORD)
         pwd_elem.send_keys("123556")
 
-        email_elem = browser.find_element(By.XPATH, REG_INPUT_EMAIL)
-        email_elem.send_keys(f"{self._generate_email()}@ya.ru")
-
         browser.find_element(By.XPATH, REG_BTN_REG).click()
-        time.sleep(5)
+        WebDriverWait(browser, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, AUTH_RECOVERY_HREF)))
 
         assert '/login' in browser.current_url
 
 
     def test_registration_pwd(self, browser):
-        browser.get(self.REG_URL)
+        browser.get(REG_URL)
 
-        name_elem = browser.find_element(By.XPATH, REG_INPUT_NAME)
+        name_elem, email_elem = browser.find_elements(By.XPATH, REG_INPUT_NAME)
         name_elem.send_keys("Марина")
+        email_elem.send_keys(f"{generate_email()}@ya.ru")
 
         pwd_elem = browser.find_element(By.XPATH, REG_INPUT_PASSWORD)
         pwd_elem.send_keys("12355")
-
-        email_elem = browser.find_element(By.XPATH, REG_INPUT_EMAIL)
-        email_elem.send_keys(f"{self._generate_email()}@ya.ru")
 
         browser.find_element(By.XPATH, REG_BTN_REG).click()
 

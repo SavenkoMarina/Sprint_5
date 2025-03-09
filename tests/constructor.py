@@ -1,28 +1,31 @@
-import time
-
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 from locators import (
     CONSTRUCTOR_BTN,
     LOGIN_ACCOUNT_BTN,
     LOGO_BTN,
+    CONSTRUCTOR_HEADER,
 )
 
 class TestConstructor:
 
     def test_enter_account_page(self, browser_auth):
         browser_auth.find_element(By.XPATH, LOGIN_ACCOUNT_BTN).click()
-        time.sleep(3)
+        WebDriverWait(browser_auth, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, LOGO_BTN)))
 
         browser_auth.find_element(By.XPATH, CONSTRUCTOR_BTN).click()
-        time.sleep(3)
+        WebDriverWait(browser_auth, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, LOGO_BTN)))
 
-        assert browser_auth.current_url == 'https://stellarburgers.nomoreparties.site/'
+        header = browser_auth.find_element(By.XPATH, CONSTRUCTOR_HEADER)
+        assert header.text == 'Соберите бургер'
 
     def test_logo_page(self, browser_auth):
         browser_auth.find_element(By.XPATH, LOGIN_ACCOUNT_BTN).click()
-        time.sleep(3)
+        WebDriverWait(browser_auth, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, LOGO_BTN)))
 
         browser_auth.find_element(By.XPATH, LOGO_BTN).click()
-        time.sleep(3)
+        WebDriverWait(browser_auth, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, LOGO_BTN)))
 
-        assert browser_auth.current_url == 'https://stellarburgers.nomoreparties.site/'
+        header = browser_auth.find_element(By.XPATH, CONSTRUCTOR_HEADER)
+        assert header.text == 'Соберите бургер'

@@ -1,5 +1,10 @@
 # Sprint_5
 
+Чтобы запустить все тесты нужно выполнить команду:
+```bash
+PYTHONPATH=. pytest tests/*
+```
+
 Регистрация (registration.py)
 1. _generate_email - генерация рандомного email
 2. test_registration_success - успешная регистрация

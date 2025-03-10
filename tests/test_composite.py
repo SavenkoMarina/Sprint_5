@@ -18,14 +18,14 @@ class TestComposite:
         WebDriverWait(browser_auth, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, TOPPINGS_HEADER)))
 
         header = browser_auth.find_element(By.XPATH, TOPPINGS_BTN).find_element(By.XPATH, PARENT_ELEMENT)
-        assert "noselect" in header.get_attribute("class")
+        assert "tab_tab_type_current__2BEPc" in header.get_attribute("class")
 
     def test_constructor_sauces(self, browser_auth):
         browser_auth.find_element(By.XPATH, SAUCES_BTN).click()
         WebDriverWait(browser_auth, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, SAUCES_HEADER)))
 
         header = browser_auth.find_element(By.XPATH, SAUCES_BTN).find_element(By.XPATH, PARENT_ELEMENT)
-        assert "noselect" in header.get_attribute("class")
+        assert "tab_tab_type_current__2BEPc" in header.get_attribute("class")
 
     def test_constructor_bread(self, browser_auth):
         browser_auth.find_element(By.XPATH, SAUCES_BTN).click()
@@ -33,4 +33,4 @@ class TestComposite:
         WebDriverWait(browser_auth, 3).until(expected_conditions.element_to_be_clickable((By.XPATH, BREAD_HEADER)))
 
         header = browser_auth.find_element(By.XPATH, BREAD_BTN).find_element(By.XPATH, PARENT_ELEMENT)
-        assert "noselect" in header.get_attribute("class")
+        assert "tab_tab_type_current__2BEPc" in header.get_attribute("class")
